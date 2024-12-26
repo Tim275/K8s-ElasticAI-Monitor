@@ -1,0 +1,49 @@
+clusterName: "elasticsearch"
+nodeGroup: "master"
+
+masterService: ""
+
+replicas: 1
+minimumMasterNodes: 1
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  hosts:
+    - host: elastic.timourproject.com
+      paths:
+        - path: /
+
+volumeClaimTemplate:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 15Gi
+
+esConfig:
+  elasticsearch.yml: |
+    xpack.security.enabled: true    # Changed to true
+    xpack.security.authc.api_key.enabled: true
+    xpack.security.transport.ssl.enabled: true
+    xpack.security.http.ssl.enabled: false
+
+extraEnvs:
+  - name: ELASTIC_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elastic-credentials
+        key: password
+  - name: ELASTIC_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elastic-credentials
+        key: username
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+  limits:
+    cpu: 1000m
+    memory: 2Gi

@@ -1,0 +1,72 @@
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app   ## name of the
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-log-generator
+  namespace: app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-log-generator
+  template:
+    metadata:
+      labels:
+        app: flask-log-generator
+    spec:
+      containers:
+      - name: flask-log-generator
+        image: jonathanbaraldi/flask-log-generator:latest
+        imagePullPolicy: Always 
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: production
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-log-generator
+  namespace: app  # Add namespace if needed
+spec:
+  type: ClusterIP  # Change from NodePort to ClusterIP
+  ports:
+    - port: 80
+      targetPort: 5000
+  selector:
+    app: flask-log-generator
+
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-log-generator-ingress
+  namespace: app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    app: flask-log-generator
+    release: flask-log-generator
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: flask.k8s.devopsforlife.io  # Replace with your DNS host
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: flask-log-generator
+            port:
+              number: 80  # Flask app listens on port 5000
