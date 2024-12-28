@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Configuration for model API and Discord webhook
 MODEL_API_URL = "http://18.191.107.234:11434/api/chat"
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1299793506830647419/kCWqbry1tSPkPuPvWJNHGv8WDaFnvedXyUDXbLIZH3WheTe1LX4EDGGc_pNMLvMNz55h"
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1322372258173554850/ZSvXe3V3SOvnc_Ixc3jd8fH5U55_IC7pzKbtmgVCtPGONJoxu_enBmbZ0mp9WJYrvYqU"
 
 
 @app.route('/alert', methods=['POST'])

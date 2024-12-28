@@ -3,8 +3,8 @@ nodeGroup: "master"
 
 masterService: ""
 
-replicas: 1
-minimumMasterNodes: 1
+replicas: 3
+minimumMasterNodes: 2
 
 ingress:
   enabled: true
