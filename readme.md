@@ -29,10 +29,12 @@ The system monitors a test application that intentionally generates problematic 
 
 ## Technologies Used
 
-- Elasticsearch 7.17.3 for log aggregation
-- Kibana 7.17.3 for visualization
-- FluentD for log collection
-- Kubernetes 1.24.17
+- Rancher for Kubernetes cluster management
+- Elasticsearch for log aggregation
+- Kibana for visualization
+- FluentD for log collection ( logstash optional)
+- Kubernetes (managed via Rancher)
+- Longhorn for persistent Elasticsearch storage
 - Ollama with Mistral/Llama models for AI analysis
 - Discord for notifications
 - Python Flask for the API service
