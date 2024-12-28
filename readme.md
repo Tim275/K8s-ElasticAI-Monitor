@@ -1,7 +1,3 @@
-Collecting workspace information
-
-Based on the workspace content, here's a high-level explanation of the application's purpose:
-
 **Purpose:**
 This is an AIOps (Artificial Intelligence for IT Operations) application that:
 
