@@ -1,31 +1,20 @@
-
-
 # Ollama - GenAI
 
 ## 14. Infrastructure Deployment - Machine
 
-t3.xlarge  - Dont load any model
-p3.2xlarge -  3 USD per hour
+t3.xlarge - Dont load any model
+p3.2xlarge - 3 USD per hour
 r5.2xlarge - 0,5 per hour
 
-=>c5.xlarge  -  $0.17 4 8 GiB 
+=>c5.xlarge - $0.17 4 8 GiB
 
 inf2.xlarge - On-Demand Linux pricing 0.7582 USD per Hour
 
 Choosed machined.
 
-=> c5.2xlarge  -  $0.34 8/16 GiB 
-
-
-
-
-
-
-
-
+=> c5.2xlarge - $0.34 8/16 GiB
 
 ## 15. Deployment ollama and llama3
-
 
 ```sh
 cd /Users/jonathanbaraldi/Dropbox/hotmart_aiops_logs/genai
@@ -48,7 +37,7 @@ docker exec -it ollama ollama help
 
 docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v ollama-webui:/app/backend/data --name ollama-webui --restart always ghcr.io/ollama-webui/ollama-webui:main
 
-  
+
 # Can you analyse applications logs and provide proper fixes?
 
 docker exec -it ollama ollama run llama3
@@ -58,7 +47,7 @@ docker exec -it ollama ollama run llama3.2
 
 docker exec -it ollama ollama run mistral-nemo
   # Excelente
-  
+
 docker exec -it ollama ollama run mistral
 
 
@@ -75,30 +64,23 @@ vtop
 
 ```
 
-
-
-
 Example of a prompt to analyse logs
 
-
 ```txt
-You are a Senior DevOps Engineer and you are receiving a TOP 20 count from a ElasticSearch index, that one alert send wh reach over some thresold. May be logs are rising with applications not healthy, so, analyze this alert message, provide possible solutions for then and return usin less than 1900 characters, because Discord limit is this. Here is the  aler data for you to analyse and provide insights and fixes: 
+You are a Senior DevOps Engineer and you are receiving a TOP 20 count from a ElasticSearch index, that one alert send wh reach over some thresold. May be logs are rising with applications not healthy, so, analyze this alert message, provide possible solutions for then and return usin less than 1900 characters, because Discord limit is this. Here is the  aler data for you to analyse and provide insights and fixes:
 
 [{'doc_count': 80, 'key': 'INFO: Logging large data: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (truncated)\n'}, {'doc_count': 79, 'key': 'CRITICAL: Critical log: System failure imminent.\n'}, {'doc_count': 79, 'key': 'DEBUG: Debug log message for troubleshooting.\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 0: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 100: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 101: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 102: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 103: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 104: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 105: Important data\n'}]
 ```
-
-
 
 ## 16. Test the model/models
 
 https://github.com/ollama/ollama/blob/main/docs/api.md
 
-
 18.217.0.238
 
-```sh 
+```sh
 
-curl http://18.217.0.238:11434/api/chat -d '{
+curl http://3.122.232.116:11434/api/chat -d '{
   "model": "mistral-nemo",
   "messages": [
     {
@@ -110,7 +92,7 @@ curl http://18.217.0.238:11434/api/chat -d '{
 }'
 
 
-curl http://18.217.0.238:11434/api/chat -d '{
+curl http://3.122.232.116:11434/api/chat -d '{
   "model": "mistral-nemo",
   "messages": [
     {
@@ -143,26 +125,22 @@ ollama list
 
 ```
 
-
 Example of a prompt to analyse logs
 
-
 ```txt
-You are a Senior DevOps Engineer and you are receiving a TOP 20 count from a ElasticSearch index, that one alert send wh reach over some thresold. May be logs are rising with applications not healthy, so, analyze this alert message, provide possible solutions for then and return usin less than 1900 characters, because Discord limit is this. Here is the  aler data for you to analyse and provide insights and fixes: 
+You are a Senior DevOps Engineer and you are receiving a TOP 20 count from a ElasticSearch index, that one alert send wh reach over some thresold. May be logs are rising with applications not healthy, so, analyze this alert message, provide possible solutions for then and return usin less than 1900 characters, because Discord limit is this. Here is the  aler data for you to analyse and provide insights and fixes:
 
 [{'doc_count': 80, 'key': 'INFO: Logging large data: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (truncated)\n'}, {'doc_count': 79, 'key': 'CRITICAL: Critical log: System failure imminent.\n'}, {'doc_count': 79, 'key': 'DEBUG: Debug log message for troubleshooting.\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 0: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 100: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 101: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 102: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 103: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 104: Important data\n'}, {'doc_count': 79, 'key': 'DEBUG: Repeated log 105: Important data\n'}]
 ```
 
-
 # llama3
-
 
 A TOP 20 count from ElasticSearch!
 
 The alert indicates that the number of logs reaching a certain threshold. Let's break it down:
 
-* 80% of logs are "INFO: Logging large data" (truncated), which might be normal or even expected.
-* 79% of logs are "CRITICAL: System failure imminent", "DEBUG: Debug log message", and repeated "DEBUG: Repeated log X: Important data" messages. This suggests that there may be issues with the application(s) logging critical errors, debug messages, and potentially important data.
+- 80% of logs are "INFO: Logging large data" (truncated), which might be normal or even expected.
+- 79% of logs are "CRITICAL: System failure imminent", "DEBUG: Debug log message", and repeated "DEBUG: Repeated log X: Important data" messages. This suggests that there may be issues with the application(s) logging critical errors, debug messages, and potentially important data.
 
 Possible solutions:
 
@@ -172,10 +150,6 @@ Possible solutions:
 4. **Alert tuning**: Adjust the alert threshold to reduce false positives or missed critical events.
 
 Remember, as a DevOps engineer, it's essential to monitor and analyze logs to identify potential issues before they become critical!
-
-
-
-
 
 # llama3.2
 
@@ -189,34 +163,33 @@ Possible solutions:
 
 These changes should help reduce the volume of logs and prevent the system from reaching the threshold.
 
-
-
 # mixtral
-Error: model requires more system memory (27.7 GiB) than is available (14.3 GiB)
 
+Error: model requires more system memory (27.7 GiB) than is available (14.3 GiB)
 
 # mistral-nemo
 
 **Analysis:**
+
 - `INFO` logs spiked (80), likely due to excessive data logging.
 - `CRITICAL` alert triggered (79), indicating system failure risk.
 - Multiple `DEBUG` logs repeated (79 each), suggesting potential infinite loops or stuck threads.
 
 **Possible Solutions:**
+
 1. **Tune ElasticSearch:** Adjust index patterns, slow logs, and increase query cache to reduce `INFO` logging.
 2. **Investigate Critical Alert:** Review the critical log for root cause, possibly related to resource exhaustion (CPU/memory).
 3. **Debug Repeated Logs:** Check for infinite loops or stuck threads in your application. Inspect methods called from repeated logs (`100-105`).
 4. **Monitor & Alert:** Set up additional alerts for high `INFO` logs (>70) and frequent `DEBUG` logs (>50).
 
 **Next Steps:**
+
 - Gather more context: Check system resources, recent code changes, and application performance.
 - Collaborate with developers to diagnose and fix issues causing excessive logging.
 
-
 # mistral
 
-
- Based on the alert data provided, it appears that there are multiple issues affecting the system:
+Based on the alert data provided, it appears that there are multiple issues affecting the system:
 
 1. High volume of INFO level logs with large data (truncated in the example), which may indicate applications or services that are performing unnecessary operations, causing performance degradation and increased resource usage. Possible solutions could include optimizing application code to reduce log output or configuring ElasticSearch to handle large logs more efficiently.
 2. Critical log messages indicating system failure imminent. This is a serious issue and requires immediate attention. It's recommended to investigate the root cause of this error, which may involve reviewing application or service logs for more details, restarting affected services, or potentially applying patches or updates.
@@ -225,3 +198,14 @@ Error: model requires more system memory (27.7 GiB) than is available (14.3 GiB)
 5. The large number of repeated debug log messages (100-105) with identical content may indicate a recurring issue within the application or service, which should be investigated to identify and resolve the underlying problem.
 
 Overall, it's important to address all these issues in order to improve system performance, stability, and maintainability. This might involve code optimizations, log filtering/suppression, troubleshooting critical errors, and ensuring logging infrastructure is functioning correctly.
+
+curl http://3.122.232.116:11434/api/chat -d '{
+"model": "mistral-nemo",
+"messages": [
+{
+"role": "user",
+"content": "Can you act a DevOps Engineer and analyze logs for me?"
+}
+],
+"stream": false
+}'

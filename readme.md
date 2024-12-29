@@ -1,5 +1,7 @@
 # AI-Driven Log Analysis & Cost Optimization Platform
 
+![alt text](aielastic.png)
+
 ## Project Overview
 
 Built a practical demonstration of an AI-powered log management system that simulates and handles real-world operational scenarios.

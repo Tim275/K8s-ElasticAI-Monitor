@@ -1,6 +1,3 @@
-elastic-watcher.md
-
-
 ```sh
 PUT _watcher/watch/log_threshold_watch
 {
@@ -44,7 +41,7 @@ PUT _watcher/watch/log_threshold_watch
     "send_to_webhook": {
       "webhook": {
         "method": "POST",
-        "url": "http://3.140.193.119:5000/alert",
+        "url": "http://3.67.174.254:5000/alert",
         "body": "{{#toJson}}ctx.payload.aggregations.duplicate_logs.buckets{{/toJson}}",
         "headers": {
           "Content-Type": "application/json"
@@ -69,9 +66,7 @@ GET .watcher-history*/_search?q=watch_id:log_threshold_watch
 
 ```
 
-
-
-RESULT RECEIVED IN THE API - 
+RESULT RECEIVED IN THE API -
 
 ```sh
 

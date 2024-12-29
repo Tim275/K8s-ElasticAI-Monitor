@@ -11,11 +11,9 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-# Configuration
 MODEL_API_URL = "http://3.122.232.116:11434/api/chat"
 DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1322372258173554850/ZSvXe3V3SOvnc_Ixc3jd8fH5U55_IC7pzKbtmgVCtPGONJoxu_enBmbZ0mp9WJYrvYqU"
 
-# Enhanced retry configuration
 session = requests.Session()
 retries = Retry(
     total=5,
@@ -27,18 +25,28 @@ session.mount('http://', HTTPAdapter(max_retries=retries))
 @app.route('/alert', methods=['POST'])
 def receive_alert():
     try:
-        # Get JSON payload
-        alert_data = request.get_json()
-        app.logger.info(f"Received alert: {alert_data}")
+        # Log raw request data for debugging
+        app.logger.info(f"Request headers: {request.headers}")
+        raw_data = request.get_data(as_text=True)
+        app.logger.info(f"Request data: {raw_data}")
+        
+        try:
+            alert_data = request.get_json()
+            if not alert_data:
+                return jsonify({"status": "error", "message": "Empty payload"}), 400
+        except Exception as e:
+            app.logger.error(f"JSON parsing error: {e}")
+            return jsonify({"status": "error", "message": "Invalid JSON payload"}), 400
+        
+        app.logger.info(f"Parsed alert payload: {alert_data}")
 
-        # models are changable !!!!
-        # beachte laenge von discord
+        # Handle list payload directly since it's coming as array from Elasticsearch
         alert_message = {
             "model": "mistral-nemo",
             "messages": [
                 {
                     "role": "user",
-                    "content": f"As a DevOps Engineer, analyze these logs and provide brief solutions (max 1500 chars): {alert_data}"
+                    "content": f"As a DevOps Engineer analyzing logs from k8s-infra*, provide brief analysis and solutions (max 1500 chars): {alert_data}"
                 }
             ],
             "stream": False
@@ -56,17 +64,16 @@ def receive_alert():
             app.logger.error(f"Model API error: {model_response.text}")
             return jsonify({"status": "error", "message": "Model analysis failed"}), 500
 
-        # Process AI response with truncation
+        # Process AI response
         analysis_content = model_response.json().get("message", {}).get("content", "No analysis")
         truncated_content = analysis_content[:1500] + ("..." if len(analysis_content) > 1500 else "")
         app.logger.info(f"Analysis received: {truncated_content[:200]}...")
 
-        # Prepare Discord message with length limit
+        # Discord message with static index info since it's coming from watcher config
         discord_message = {
-            "content": f"🚨 **Log Analysis Alert**\n\n{truncated_content}\n\n⚠️ *Check logs*"
+            "content": f"🚨 **Log Analysis Alert**\n📊 *Source Index: k8s-infra**\n\n{truncated_content}\n\n⚠️ *Check logs in k8s-infra**"
         }
 
-        # Ensure total Discord message is under 2000 chars
         if len(discord_message["content"]) > 1900:
             discord_message["content"] = discord_message["content"][:1897] + "..."
 

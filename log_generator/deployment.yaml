@@ -35,9 +35,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: flask-log-generator
-  namespace: app # Add namespace if needed
+  namespace: app
 spec:
-  type: ClusterIP # Change from NodePort to ClusterIP
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 5000
