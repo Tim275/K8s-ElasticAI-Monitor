@@ -1,6 +1,6 @@
 # AI-Driven Log Analysis & Cost Optimization Platform
 
-![alt text](aielastic.png)
+![alt text](genaielastic.png)
 
 ## Project Overview
 
