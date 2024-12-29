@@ -1,3 +1,11 @@
 newEc2.pem
 elastickeypair.pem
 readme.txt
+
+# Ignore readme files in subdirectories but not in root
+**/*/readme.md
+**/*/README.md
+
+# Don't ignore root readme
+!/readme.md
+!/README.md

@@ -51,8 +51,7 @@ docker exec -it ollama ollama run mistral-nemo
 docker exec -it ollama ollama run mistral
 
 
-docker exec -it ollama ollama run mixtral # Muita CPU
-# Error: model requires more system memory (27.7 GiB) than is available (14.3 GiB)
+docker exec -it ollama ollama run mixtral # if > 27 gb. only for LAAARGE instances
 
 
 docker exec -it ollama ollama run gemma # Google 2b
