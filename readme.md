@@ -54,7 +54,7 @@ The system monitors a test application that intentionally generates problematic 
 
 lets spam some suspicous logs....
 
-![alt text](image.png)
+![alt text](assets/image.png)
 
 the outcome:
 ![alt text](assets/tonsoflogs.png)
@@ -64,7 +64,7 @@ Server gets a request
 
 Ollama AI is running
 
-![alt text](assets/ollama.png)
+![alt text](assets/Ollamarunning.png)
 
 Alert comes to Discord
 
