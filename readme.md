@@ -47,3 +47,27 @@ The system monitors a test application that intentionally generates problematic 
 - Automated incident response
 - AI-driven problem resolution
 - Proactive system maintenance
+
+## Results & Outcomes
+
+![alt text](assets/k8-infra.png)
+
+lets spam some suspicous logs....
+
+![alt text](image.png)
+
+the outcome:
+![alt text](assets/tonsoflogs.png)
+
+Server gets a request
+![alt text](assets/serverresponse.png)
+
+Ollama AI is running
+
+![alt text](assets/ollama.png)
+
+Alert comes to Discord
+
+![alt text](assets/resolve1.png)
+
+![alt text](assets/resolve2.png)
